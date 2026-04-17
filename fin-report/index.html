@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fin Report, 加密货币日报归档</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0f172a;
+      --panel: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --text: #f8fafc;
+      --muted: rgba(248,250,252,0.72);
+      --blue: #60a5fa;
+      --green: #34d399;
+      --violet: #a78bfa;
+      --gold: #fbbf24;
+      --shadow: 0 24px 60px rgba(0,0,0,0.28);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(96,165,250,0.24), transparent 28%),
+        radial-gradient(circle at 90% 18%, rgba(167,139,250,0.18), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(52,211,153,0.12), transparent 30%),
+        linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 64px; }
+    .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: stretch; }
+    .hero-main, .hero-side, .report-card, .guide-card, .latest-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+    .hero-main { padding: 30px; min-height: 280px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06); color: var(--muted); font-size: 13px;
+    }
+    .badge.gold { color: #fde68a; border-color: rgba(251,191,36,0.28); background: rgba(251,191,36,0.12); }
+    h1 { margin: 18px 0 14px; font-size: 48px; line-height: 1.05; letter-spacing: -0.02em; }
+    .lead { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 760px; }
+    .hero-actions, .card-actions, .latest-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-actions { margin-top: 22px; }
+    a.btn {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 14px;
+      text-decoration: none; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
+    }
+    a.btn.primary { background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); border-color: rgba(96,165,250,0.45); }
+    .hero-side { padding: 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; }
+    .hero-side h3, .section-title { margin: 0; font-size: 22px; }
+    .muted { color: var(--muted); }
+    .mini-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 14px; }
+    .metric .k { color: var(--muted); font-size: 13px; }
+    .metric .v { margin-top: 6px; font-size: 22px; font-weight: 800; }
+    .sections { margin-top: 24px; display: grid; gap: 24px; }
+    .latest-card {
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(96,165,250,0.12)), rgba(255,255,255,0.08);
+      border-color: rgba(251,191,36,0.22);
+    }
+    .latest-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+    .latest-date { color: var(--gold); font-size: 30px; font-weight: 800; margin: 12px 0 8px; }
+    .latest-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+    .latest-desc { color: var(--muted); max-width: 760px; line-height: 1.75; }
+    .latest-actions { margin-top: 18px; }
+    .guide-card { padding: 22px; }
+    .guide-grid, .reports-grid { display: grid; gap: 18px; }
+    .guide-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px; }
+    .guide-item { background: rgba(255,255,255,0.05); border-radius: 18px; padding: 16px; border: 1px solid rgba(255,255,255,0.08); }
+    .guide-item strong { display: block; margin-bottom: 8px; font-size: 16px; }
+    .reports-head { display: flex; justify-content: space-between; align-items: end; gap: 14px; flex-wrap: wrap; }
+    .reports-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .report-card { padding: 22px; transition: transform .18s ease, border-color .18s ease; }
+    .report-card:hover { transform: translateY(-5px); border-color: rgba(96,165,250,0.4); }
+    .date { color: var(--blue); font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+    .report-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .report-desc { color: var(--muted); line-height: 1.7; min-height: 72px; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 18px; }
+    .chip { padding: 6px 10px; border-radius: 999px; font-size: 12px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.05); color: var(--muted); }
+    .chip.blue { color: #bfdbfe; }
+    .chip.green { color: #bbf7d0; }
+    .chip.violet { color: #ddd6fe; }
+    .chip.gold { color: #fde68a; }
+    .footer { margin-top: 28px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    @media (max-width: 980px) { .hero, .guide-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .wrap { padding: 16px 14px 40px; }
+      .hero-main, .hero-side, .guide-card, .report-card, .latest-card { padding: 18px; }
+      h1 { font-size: 34px; }
+      .lead { font-size: 15px; }
+      .mini-metrics { grid-template-columns: 1fr; }
+      .latest-date { font-size: 24px; }
+      .latest-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-main">
+        <span class="badge">Fin Report Archive · Crypto Daily</span>
+        <h1>加密货币日报归档</h1>
+        <div class="lead">
+          这里汇总了每日加密货币市场观察。每一期日报默认统计的是该日报生成时间点往前 24 小时的市场数据与公开信息。打开首页可以直接阅读最新一期，也可以按日期回看历史日报，快速了解市场节奏、主线变化和重要风险。
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="/fin-report/reports/2026-04-17/">查看今日日报</a>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <div>
+          <h3>日报默认结构</h3>
+          <p class="muted">统一版式，统一统计口径，方便连续阅读、横向比较和快速抓重点。</p>
+        </div>
+        <div class="mini-metrics">
+          <div class="metric"><div class="k">更新频率</div><div class="v">每日</div></div>
+          <div class="metric"><div class="k">生成时间</div><div class="v">10:00</div></div>
+          <div class="metric"><div class="k">时区</div><div class="v">北京时间</div></div>
+          <div class="metric"><div class="k">当前存档</div><div class="v">1 期</div></div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="sections">
+      <section class="latest-card">
+        <div class="latest-top">
+          <div>
+            <span class="badge gold">最新一期</span>
+            <div class="latest-date">2026-04-17</div>
+            <div class="latest-title">加密货币日报</div>
+            <div class="latest-desc">本期日报覆盖的是 2026-04-17 生成时点往前 24 小时的市场数据。当前核心判断是“恐慌中修复”，BTC 韧性仍在，SOL 和 AI 板块相对更强，但操作上继续强调主流仓稳、题材仓轻。</div>
+            <div class="latest-actions">
+              <a class="btn primary" href="/fin-report/reports/2026-04-17/">立即阅读</a>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip gold">最新更新</span>
+            <span class="chip blue">结论优先</span>
+            <span class="chip green">AI 叙事观察</span>
+            <span class="chip violet">大V追踪</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-card">
+        <div class="reports-head">
+          <div>
+            <h2 class="section-title">你会在日报里看到什么</h2>
+            <div class="muted">不是纯资讯堆叠，而是先结论，再依据，再风险。</div>
+          </div>
+        </div>
+        <div class="guide-grid">
+          <div class="guide-item">
+            <strong>结论摘要</strong>
+            <div class="muted">快速判断今天市场偏多、偏空还是震荡，以及主线在哪里。</div>
+          </div>
+          <div class="guide-item">
+            <strong>执行信息</strong>
+            <div class="muted">核心币种、投资建议、技术位和风险提示，方便直接拿来做判断。</div>
+          </div>
+          <div class="guide-item">
+            <strong>热点观察</strong>
+            <div class="muted">AI 叙事、新发行币种、大V观点和新闻影响解读，帮助理解市场结构。</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="reports-head">
+          <div>
+            <h2 class="section-title">日报列表</h2>
+            <div class="muted">按日期归档，方便持续追踪市场变化。</div>
+          </div>
+        </div>
+        <div class="reports-grid">
+          <article class="report-card">
+            <div class="date">2026-04-17</div>
+            <div class="report-title">加密货币日报</div>
+            <div class="report-desc">覆盖日报生成时间点往前 24 小时内的市场变化，包括 BTC 韧性、SOL 相对强势、AI 板块分化、KOL 情绪温度以及行业新闻影响。</div>
+            <div class="chips">
+              <span class="chip gold">最新一期</span>
+              <span class="chip blue">市场摘要</span>
+              <span class="chip green">AI 叙事观察</span>
+              <span class="chip violet">大V追踪</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn primary" href="/fin-report/reports/2026-04-17/">查看日报</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer">
+      每期日报默认基于生成时间点往前 24 小时的市场数据与公开信息整理，围绕市场概况、核心币种、热点板块、风险提示和新闻影响解读展开，帮助你更快进入当天的市场状态。
+    </div>
+  </div>
+</body>
+</html>
