@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>加密货币日报 2026-04-18</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --panel: #ffffff;
+      --text: #18212f;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #2563eb;
+      --good: #16a34a;
+      --good-soft: #dcfce7;
+      --warn: #d97706;
+      --warn-soft: #fef3c7;
+      --bad: #dc2626;
+      --bad-soft: #fee2e2;
+      --neutral: #64748b;
+      --neutral-soft: #e2e8f0;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 180px); color: var(--text); line-height: 1.6; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 24px; }
+    .hero { background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%); color: #fff; border-radius: 24px; padding: 32px; box-shadow: var(--shadow); }
+    .hero-top { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+    .eyebrow { display: inline-block; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.12); font-size: 13px; margin-bottom: 14px; }
+    h1 { margin: 0; font-size: 38px; line-height: 1.15; }
+    .sub { margin-top: 10px; color: rgba(255,255,255,0.88); max-width: 820px; }
+    .date-box { min-width: 240px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 16px; padding: 16px; }
+    .date-box .label { color: rgba(255,255,255,0.7); font-size: 12px; }
+    .date-box .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+    .summary-grid,.stats-grid,.cards-2,.cards-3,.news-grid { display: grid; gap: 18px; }
+    .summary-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 24px; }
+    .stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .cards-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cards-3,.news-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .summary-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.14); border-radius: 16px; padding: 18px; }
+    .summary-card .k { color: rgba(255,255,255,0.72); font-size: 13px; }
+    .summary-card .v { margin-top: 8px; font-size: 20px; font-weight: 700; }
+    .section { margin-top: 24px; }
+    .section-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .section-title { font-size: 24px; margin: 0; }
+    .section-note,.muted { color: var(--muted); font-size: 14px; }
+    .panel-body { padding: 22px; }
+    .stat-card { padding: 20px; border-left: 5px solid var(--primary); }
+    .stat-card .label { color: var(--muted); font-size: 14px; }
+    .stat-card .value { font-size: 30px; font-weight: 800; margin-top: 8px; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+    .chip.good { color: var(--good); background: var(--good-soft); }
+    .chip.warn { color: var(--warn); background: var(--warn-soft); }
+    .chip.bad { color: var(--bad); background: var(--bad-soft); }
+    .chip.neutral { color: var(--neutral); background: var(--neutral-soft); }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 14px; }
+    th,td { padding: 14px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: #eff6ff; color: #1e3a8a; font-size: 14px; }
+    tr:last-child td { border-bottom: none; }
+    .pos { color: var(--good); font-weight: 700; }
+    .neg { color: var(--bad); font-weight: 700; }
+    .callout { padding: 18px 20px; border-radius: 16px; border: 1px solid var(--line); background: #f8fafc; }
+    .thesis-card,.news-card,.tech-card,.risk-card { padding: 20px; }
+    .coin-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 14px; }
+    .coin-name { font-size: 22px; font-weight: 800; }
+    .metric-mini { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+    .metric-mini > div { background: #f8fafc; border-radius: 12px; padding: 12px; border: 1px solid #edf2f7; }
+    .metric-mini .k { color: var(--muted); font-size: 12px; }
+    .metric-mini .v { font-weight: 700; margin-top: 4px; }
+    ul.clean { margin: 0; padding-left: 18px; }
+    ul.clean li { margin: 8px 0; }
+    .topline { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; }
+    .news-title { font-weight: 700; margin-bottom: 8px; }
+    .news-meta { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+    .footer { margin-top: 28px; padding: 20px 24px 36px; color: var(--muted); font-size: 14px; }
+    .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+    a.btn { display: inline-block; text-decoration: none; padding: 10px 16px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--text); font-weight: 600; }
+    a.btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    @media (max-width: 980px) { .summary-grid,.stats-grid,.cards-2,.cards-3,.news-grid,.topline { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .wrap { padding: 14px; } .hero { padding: 22px; border-radius: 18px; } h1 { font-size: 28px; }
+      .panel-body,.news-card,.tech-card,.risk-card,.thesis-card,.stat-card { padding: 16px; }
+      table,thead,tbody,th,td,tr { display: block; } thead { display:none; }
+      tr { margin-bottom: 14px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+      td { display: flex; justify-content: space-between; gap: 16px; }
+      td::before { content: attr(data-label); color: var(--muted); font-weight: 600; min-width: 96px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Crypto Daily Brief</div>
+          <h1>加密货币日报</h1>
+          <div class="sub">本期日报统计的是生成时间点往前 24 小时的市场数据与公开信息。今天的结论是“主流币延续修复，但节奏仍偏谨慎”，BTC 重新站上 7.7 万美元一线，ETH 跟随反弹，SOL 维持相对强势，TAO 在 AI 赛道里略显分化，整体更像挤空驱动的偏多震荡，而不是无差别全面转牛。</div>
+        </div>
+        <div class="date-box">
+          <div class="label">报告日期</div>
+          <div class="value">2026-04-18</div>
+          <div class="label" style="margin-top:10px;">生成时间</div>
+          <div>2026-04-18 10:01 CST</div>
+          <div class="label" style="margin-top:10px;">统计区间</div>
+          <div>向前回溯 24 小时</div>
+        </div>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-card"><div class="k">今日市场判断</div><div class="v">偏多修复，未脱谨慎</div></div>
+        <div class="summary-card"><div class="k">今日主线</div><div class="v">BTC 挤空，主流轮动</div></div>
+        <div class="summary-card"><div class="k">今日风险</div><div class="v">阻力位和低情绪并存</div></div>
+        <div class="summary-card"><div class="k">操作建议</div><div class="v">主流优先，别在强势尾端追价</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">今日摘要</h2><div class="section-note">给高频阅读者准备的 30 秒版本</div></div>
+      <div class="panel"><div class="panel-body topline">
+        <div class="callout">
+          <ul class="clean">
+            <li>BTC 现报约 $77,217，24 小时上涨 3.26%，全市场总市值回到 $2.70T 上方，说明修复行情还在延续。</li>
+            <li>ETH 同步反弹至 $2,421，上涨 3.56%，但 BTC 市占率继续维持在 57% 上方，市场依旧是“先修复龙头，再考虑扩散”。</li>
+            <li>SOL 仍然是主流高弹性里的强势代表，TAO 反而小幅回落，说明 AI 叙事仍有辨识度，但板块内部已经开始分化。</li>
+            <li>恐惧贪婪指数虽然从 21 升到 26，但仍处在恐惧区，策略上适合低吸和持有，不适合把短线修复误读成单边行情。</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div style="font-weight:800; margin-bottom:10px;">今日执行建议</div>
+          <ul class="clean">
+            <li>核心仓位继续优先 BTC，当前最稳定的强度和资金承接仍在它身上。</li>
+            <li>ETH 适合跟随持有，但在 ETH/BTC 明显改善前，不急着当作主攻方向超配。</li>
+            <li>SOL 可继续列入强势观察名单，优先等回踩确认，而不是在情绪高点追突破。</li>
+            <li>TAO、RNDR 这类 AI 标的仍可观察，但更适合轻仓做相对强弱，不适合重仓押方向。</li>
+          </ul>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">核心市场指标</h2><div class="section-note">默认统计口径为日报生成时间点往前 24 小时，优先保留可信聚合数据</div></div>
+      <div class="stats-grid">
+        <div class="panel stat-card"><div class="label">总市值</div><div class="value">$2.70T</div></div>
+        <div class="panel stat-card"><div class="label">24 小时交易量</div><div class="value">$146.64B</div></div>
+        <div class="panel stat-card"><div class="label">BTC 市占率</div><div class="value">57.3%</div></div>
+        <div class="panel stat-card"><div class="label">恐惧贪婪指数</div><div class="value">26</div><div style="margin-top:8px;"><span class="chip warn">恐惧</span></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">核心币种表现</h2><div class="section-note">默认展示约 12 个核心币种，兼顾主流、平台币、支付链、公链与 AI 叙事</div></div>
+      <div class="panel"><div class="panel-body">
+        <table>
+          <thead><tr><th>币种</th><th>价格</th><th>24h 涨跌幅</th><th>观察</th><th>策略</th></tr></thead>
+          <tbody>
+            <tr><td data-label="币种"><strong>BTC</strong><br><span class="muted">Bitcoin</span></td><td data-label="价格">$77,217</td><td data-label="24h 涨跌幅" class="pos">+3.26%</td><td data-label="观察">重新逼近 7.8 万美元，挤空逻辑仍在发挥作用</td><td data-label="策略"><span class="chip good">核心持有</span></td></tr>
+            <tr><td data-label="币种"><strong>ETH</strong><br><span class="muted">Ethereum</span></td><td data-label="价格">$2,421</td><td data-label="24h 涨跌幅" class="pos">+3.56%</td><td data-label="观察">跟随 BTC 修复，但相对强度仍未反超</td><td data-label="策略"><span class="chip neutral">继续持有</span></td></tr>
+            <tr><td data-label="币种"><strong>SOL</strong><br><span class="muted">Solana</span></td><td data-label="价格">$88.85</td><td data-label="24h 涨跌幅" class="pos">+0.66%</td><td data-label="观察">价格涨幅不算最猛，但衍生品和基础设施叙事仍偏强</td><td data-label="策略"><span class="chip good">回踩关注</span></td></tr>
+            <tr><td data-label="币种"><strong>TAO</strong><br><span class="muted">Bittensor</span></td><td data-label="价格">$253.24</td><td data-label="24h 涨跌幅" class="neg">-0.27%</td><td data-label="观察">AI 龙头转入高位震荡，板块出现分化信号</td><td data-label="策略"><span class="chip warn">轻仓分批</span></td></tr>
+            <tr><td data-label="币种"><strong>BNB</strong><br><span class="muted">BNB</span></td><td data-label="价格">$645.09</td><td data-label="24h 涨跌幅" class="pos">+2.14%</td><td data-label="观察">平台币延续稳健反弹，偏防守中的顺势资产</td><td data-label="策略"><span class="chip neutral">稳健观察</span></td></tr>
+            <tr><td data-label="币种"><strong>XRP</strong><br><span class="muted">Ripple</span></td><td data-label="价格">$1.48</td><td data-label="24h 涨跌幅" class="pos">+3.29%</td><td data-label="观察">延续上周相对强势，但成交量仍不足以定义真突破</td><td data-label="策略"><span class="chip neutral">轮动跟踪</span></td></tr>
+            <tr><td data-label="币种"><strong>DOGE</strong><br><span class="muted">Dogecoin</span></td><td data-label="价格">$0.0991</td><td data-label="24h 涨跌幅" class="pos">+0.71%</td><td data-label="观察">情绪币跟涨但没失控，仍高度依赖 BTC 节奏</td><td data-label="策略"><span class="chip warn">高波动观察</span></td></tr>
+            <tr><td data-label="币种"><strong>ADA</strong><br><span class="muted">Cardano</span></td><td data-label="价格">$0.2574</td><td data-label="24h 涨跌幅" class="pos">+0.49%</td><td data-label="观察">跟随型修复，尚未建立独立主线</td><td data-label="策略"><span class="chip neutral">等待确认</span></td></tr>
+            <tr><td data-label="币种"><strong>AVAX</strong><br><span class="muted">Avalanche</span></td><td data-label="价格">$9.70</td><td data-label="24h 涨跌幅" class="pos">+0.75%</td><td data-label="观察">跟涨但强度一般，更像轮动补涨</td><td data-label="策略"><span class="chip neutral">观察强弱</span></td></tr>
+            <tr><td data-label="币种"><strong>LINK</strong><br><span class="muted">Chainlink</span></td><td data-label="价格">$9.59</td><td data-label="24h 涨跌幅" class="pos">+1.63%</td><td data-label="观察">预言机龙头温和回暖，属于主流山寨受益者</td><td data-label="策略"><span class="chip neutral">跟踪轮动</span></td></tr>
+            <tr><td data-label="币种"><strong>SUI</strong><br><span class="muted">Sui</span></td><td data-label="价格">$0.994</td><td data-label="24h 涨跌幅" class="pos">+0.09%</td><td data-label="观察">临近整数位横盘，说明资金更偏等待而非追涨</td><td data-label="策略"><span class="chip neutral">等放量</span></td></tr>
+            <tr><td data-label="币种"><strong>RNDR</strong><br><span class="muted">Render</span></td><td data-label="价格">$1.85</td><td data-label="24h 涨跌幅" class="neg">-1.96%</td><td data-label="观察">AI 板块内部分化加剧，资金更挑龙头和流动性</td><td data-label="策略"><span class="chip warn">不追反弹</span></td></tr>
+          </tbody>
+        </table>
+        <div class="section-note" style="margin-top:12px;">注：本栏优先展示代表性资产。若不同站点对成交量或市值口径存在偏差，解读会更重视方向、相对强弱与结构变化。</div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">投资建议</h2><div class="section-note">先给执行区间，再给逻辑</div></div>
+      <div class="cards-2">
+        <div class="panel thesis-card"><div class="coin-head"><div class="coin-name">BTC</div><span class="chip good">买入/持有</span></div><div class="metric-mini"><div><div class="k">目标区间</div><div class="v">$78.0k - $79.5k</div></div><div><div class="k">风控区间</div><div class="v">$75.9k / $74.5k</div></div><div><div class="k">时间框架</div><div class="v">数日到数周</div></div><div><div class="k">风险等级</div><div class="v">中等</div></div></div><ul class="clean"><li>负 funding 与空头回补仍是当前最清晰的支撑逻辑。</li><li>只要 BTC 维持在 7.59 万美元上方，修复结构就没有明显走坏。</li><li>真正要防的是冲击 7.8 万到 8 万美元时的抛压加重，而不是日内小波动。</li></ul></div>
+        <div class="panel thesis-card"><div class="coin-head"><div class="coin-name">ETH</div><span class="chip neutral">持有</span></div><div class="metric-mini"><div><div class="k">目标区间</div><div class="v">$2,460 - $2,520</div></div><div><div class="k">风控区间</div><div class="v">$2,360 / $2,300</div></div><div><div class="k">时间框架</div><div class="v">数周</div></div><div><div class="k">风险等级</div><div class="v">中等</div></div></div><ul class="clean"><li>ETH 已经跟随反弹，但暂时还是“补涨逻辑”多于“领涨逻辑”。</li><li>更适合作为组合里的稳定仓，而不是今天最需要放大仓位的方向。</li><li>如果 ETH/BTC 重新走强，才值得提高弹性预期。</li></ul></div>
+        <div class="panel thesis-card"><div class="coin-head"><div class="coin-name">SOL</div><span class="chip good">回踩买入</span></div><div class="metric-mini"><div><div class="k">目标区间</div><div class="v">$90.5 - $94</div></div><div><div class="k">风控区间</div><div class="v">$86.5 / $84</div></div><div><div class="k">时间框架</div><div class="v">数日到数周</div></div><div><div class="k">风险等级</div><div class="v">较高</div></div></div><ul class="clean"><li>Solana 的强度来自价格、衍生品持仓和基础设施催化的共振。</li><li>强势资产最容易在盘中制造 FOMO，所以更适合等回踩承接。</li><li>若 BTC 继续稳住，SOL 仍有机会成为主流山寨里的领涨代表。</li></ul></div>
+        <div class="panel thesis-card"><div class="coin-head"><div class="coin-name">TAO</div><span class="chip warn">轻仓参与</span></div><div class="metric-mini"><div><div class="k">目标区间</div><div class="v">$260 - $275</div></div><div><div class="k">风控区间</div><div class="v">$245 / $236</div></div><div><div class="k">时间框架</div><div class="v">数日到数周</div></div><div><div class="k">风险等级</div><div class="v">高</div></div></div><ul class="clean"><li>TAO 仍是 AI 赛道辨识度最高的交易标的之一，但今天已明显进入高位分歧。</li><li>高波动与题材溢价共存，只适合轻仓、分批、严格风控。</li><li>更适合做弹性仓位，不适合替代 BTC 或 ETH 的核心仓功能。</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">AI 叙事观察</h2><div class="section-note">AI 方向还在，但已经从“普涨”切回“挑龙头、挑流动性”</div></div>
+      <div class="cards-3">
+        <div class="panel risk-card"><div style="font-size:20px; font-weight:800; margin-bottom:10px;">TAO</div><div><span class="chip warn">龙头仍在，波动也在</span></div><p>TAO 虽然今天没有继续领涨，但仍是 AI 赛道最有市场辨识度的观察标的。问题不在叙事失效，而在资金开始要求更好的位置和更强的承接。</p><ul class="clean"><li>适合：轻仓、分批、等回踩</li><li>回避：把龙头分歧误判成低风险介入点</li></ul></div>
+        <div class="panel risk-card"><div style="font-size:20px; font-weight:800; margin-bottom:10px;">RNDR / FET / AGIX 方向</div><div><span class="chip neutral">分化大于共振</span></div><p>AI 板块内今天已经不是同步上行，RNDR 反而偏弱，说明资金更愿意做有流动性、有辨识度的老龙头，而不是整个板块一起抬升。</p><ul class="clean"><li>重点看：谁能在 BTC 稳住时重新放量</li><li>回避：只有概念热度、没有资金承接的小票</li></ul></div>
+        <div class="panel risk-card"><div style="font-size:20px; font-weight:800; margin-bottom:10px;">AI 板块交易方式</div><div><span class="chip good">结构性参与</span></div><p>恐惧贪婪指数仍在 26 的恐惧区，市场并没有进入愿意为所有 AI 叙事无差别定价的阶段。现在更像结构性交易窗口，而不是全面扩表式行情。</p><ul class="clean"><li>优先：TAO 等高辨识度龙头</li><li>次选：等待 RNDR/FET 等回暖确认</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">新发行币种关注</h2><div class="section-note">只保留观察名单，高风险内容不写成推荐</div></div>
+      <div class="cards-3">
+        <div class="panel news-card"><div class="news-title">RAVE</div><div class="news-meta">CoinGecko 热门搜索靠前 · 高波动新项目</div><div><span class="chip warn">高风险</span></div><p>短线热度极高，24 小时波动也很大，更像资金博弈场而不是可验证的基本面交易标的。</p><ul class="clean"><li>看点：是否还能维持成交连续性</li><li>风险：热度回落时流动性衰减很快</li></ul></div>
+        <div class="panel news-card"><div class="news-title">OpenVPP</div><div class="news-meta">新上榜热搜项目 · 题材驱动</div><div><span class="chip warn">中高风险</span></div><p>属于典型“先有关注度、后看交易承接”的新项目。没有持续成交之前，不适合给出方向性结论。</p><ul class="clean"><li>看点：成交深度与二级市场承接</li><li>风险：单日热搜不等于持续生命力</li></ul></div>
+        <div class="panel news-card"><div class="news-title">Fabric Protocol</div><div class="news-meta">热度上升中的新币 · 观察名单</div><div><span class="chip neutral">谨慎跟踪</span></div><p>相较纯 meme，更像偏叙事驱动的新资产，但对大多数用户来说，最大的约束仍是交易深度和信息透明度。</p><ul class="clean"><li>看点：是否出现稳定持仓与成交</li><li>风险：故事先行，流动性不足</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">大V喊单追踪</h2><div class="section-note">只看代表性情绪方向，不把公开观点当成确定性建议</div></div>
+      <div class="panel"><div class="panel-body">
+        <table>
+          <thead><tr><th>来源</th><th>平台</th><th>倾向</th><th>关注币</th><th>我的解读</th></tr></thead>
+          <tbody>
+            <tr><td data-label="来源"><strong>Arthur Hayes 相关公开发言</strong><br><span class="muted">X 公开动态被媒体引用</span></td><td data-label="平台">X / 媒体转述</td><td data-label="倾向"><span class="chip neutral">短线反弹，但仍保留宏观担忧</span></td><td data-label="关注币">BTC, ETH</td><td data-label="我的解读">代表性情绪是“能弹，但别太早把反弹当趋势反转”，这和当前市场状态比较吻合。</td></tr>
+            <tr><td data-label="来源"><strong>衍生品交易员视角</strong><br><span class="muted">CoinDesk 对 funding / OI 的报道</span></td><td data-label="平台">市场评论</td><td data-label="倾向"><span class="chip good">继续盯挤空</span></td><td data-label="关注币">BTC, SOL, ADA</td><td data-label="我的解读">只要负 funding 和空头拥挤还在，主流币修复就有继续走的条件。</td></tr>
+            <tr><td data-label="来源"><strong>谨慎派观察者</strong><br><span class="muted">卖墙与成交量跟踪</span></td><td data-label="平台">研究简报 / 社媒</td><td data-label="倾向"><span class="chip warn">警惕 7.8 万附近阻力</span></td><td data-label="关注币">BTC, XRP, DOGE</td><td data-label="我的解读">方向未必错，但一致偏多后最该防的是阻力区回吐，而不是一味加杠杆。</td></tr>
+          </tbody>
+        </table>
+        <div class="section-note" style="margin-top:12px;">公开平台噪音很大，这里只保留可验证的代表性情绪方向，不展示未经证实的精确喊单数据。</div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">技术位速览</h2><div class="section-note">技术位用于理解执行区间，不伪装成高精度预测</div></div>
+      <div class="cards-3">
+        <div class="panel tech-card"><div style="font-size:20px; font-weight:800;">BTC</div><p><span class="chip good">震荡偏强</span></p><ul class="clean"><li>支撑区：$75.9k / $74.5k</li><li>阻力区：$78.0k / $79.5k</li><li>判断重点：能否把 7.8 万美元由阻力转成站稳区。</li></ul></div>
+        <div class="panel tech-card"><div style="font-size:20px; font-weight:800;">ETH</div><p><span class="chip neutral">修复跟随</span></p><ul class="clean"><li>支撑区：$2,360 / $2,300</li><li>阻力区：$2,460 / $2,520</li><li>判断重点：能否跟上 BTC，而不是反弹一天后重新转弱。</li></ul></div>
+        <div class="panel tech-card"><div style="font-size:20px; font-weight:800;">SOL / TAO</div><p><span class="chip warn">强弱分化</span></p><ul class="clean"><li>SOL：支撑 $86.5 / $84，阻力 $90.5 / $94</li><li>TAO：支撑 $245 / $236，阻力 $260 / $275</li><li>判断重点：SOL 看承接，TAO 看分歧后能否稳住。</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">风险提示</h2><div class="section-note">当前最大的风险，是把修复行情做成冲动追涨</div></div>
+      <div class="cards-2">
+        <div class="panel risk-card"><div style="font-size:20px; font-weight:800; margin-bottom:10px;">情绪与杠杆风险</div><ul class="clean"><li>恐惧贪婪指数虽回升到 26，但仍在恐惧区，说明市场信心远未回到稳定 risk-on 状态。</li><li>BTC 目前的强势部分来自挤空，一旦阻力位承压，杠杆仓位会放大回撤速度。</li></ul></div>
+        <div class="panel risk-card"><div style="font-size:20px; font-weight:800; margin-bottom:10px;">题材与宏观流动性风险</div><ul class="clean"><li>AI 叙事今天已经出现内部强弱分化，说明题材交易并非全面回暖，弱票更容易被抛弃。</li><li>宏观层面虽然风险偏好有所回升，但期权端和避险资产并未完全确认单边乐观，行情仍可能反复。</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">新闻速览</h2><div class="section-note">过去 24 小时更值得跟踪的几条行业信息，每条都附影响解读</div></div>
+      <div class="news-grid">
+        <div class="panel news-card"><div class="news-title">BTC 在 7.6 万美元上方继续遭遇卖墙，但衍生品成交和清算同步抬升</div><div class="news-meta">CoinDesk · 2026-04-17</div><div><span class="chip warn">短线承压</span></div><p>影响解读：说明上涨并非毫无阻力，后续若要继续上攻，需要更多现货承接而不是只靠空头回补。</p></div>
+        <div class="panel news-card"><div class="news-title">XRP 近一周相对强势领先 BTC 和 ETH，但量能仍偏弱</div><div class="news-meta">CoinDesk · 2026-04-17</div><div><span class="chip neutral">结构性轮动</span></div><p>影响解读：热门主流币的轮动在扩散，不过目前仍属于选择性修复，而不是市场普涨确认。</p></div>
+        <div class="panel news-card"><div class="news-title">Morgan Stanley 低费率比特币 ETF 首周吸金超过 1 亿美元</div><div class="news-meta">CoinDesk · 2026-04-16</div><div><span class="chip good">中期偏利多</span></div><p>影响解读：传统金融渠道继续把 BTC 包装成标准化配置工具，有利于中期资金面预期。</p></div>
+        <div class="panel news-card"><div class="news-title">DoubleZero 为 Solana 推出更低延迟的数据分发网络</div><div class="news-meta">CoinDesk · 2026-04-16</div><div><span class="chip good">SOL 叙事增强</span></div><p>影响解读：这类基础设施升级会强化 Solana 在高频交易和链上活跃度上的优势，也是 SOL 保持相对强势的背景之一。</p></div>
+        <div class="panel news-card"><div class="news-title">Bitcoin funding rates 跌至 2023 年以来最负水平，历史上常对应局部底部</div><div class="news-meta">CoinDesk · 2026-04-16</div><div><span class="chip good">挤空逻辑强化</span></div><p>影响解读：当前行情不是纯消息拉升，衍生品结构本身就在为 BTC 提供向上的燃料。</p></div>
+        <div class="panel news-card"><div class="news-title">CoinGecko 热搜榜里新币与题材币活跃度明显上升</div><div class="news-meta">CoinGecko Trending · 2026-04-18</div><div><span class="chip warn">情绪升温但风险高</span></div><p>影响解读：市场风险偏好在回暖，但热搜上升并不等于质量提升，对新币仍应先看流动性再谈判断。</p></div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>说明：本页面基于 2026-04-18 10:01 CST 生成时间点往前 24 小时的公开市场数据与行业信息整理。</div>
+      <div>统计区间：向前回溯 24 小时。</div>
+      <div>数据来源参考：CoinGecko 全局与市场接口、Alternative.me 恐惧贪婪指数，以及过去 24 小时公开可访问的行业报道。</div>
+      <div>免责声明：本报告仅供参考，不构成投资建议。加密货币波动极大，请务必控制风险。</div>
+      <div class="links"><a class="btn primary" href="/fin-report/">返回导航首页</a></div>
+    </div>
+  </div>
+</body>
+</html>
